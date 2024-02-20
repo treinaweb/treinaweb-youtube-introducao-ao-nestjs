@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Repository } from 'typeorm';
@@ -19,10 +19,12 @@ export class TaskService {
   }
 
   async findAll() {
+    if (!await this.taskRepository.find()) throw new NotFoundException('Nenhuma tarefa encontrada.')
     return await this.taskRepository.find();
   }
 
   async findOne(id: number) {
+    if (!await this.taskRepository.findOneBy({ id })) throw new NotFoundException(`Tarefa id:${id} não encontrada.`)
     return await this.taskRepository.findOneBy({ id });
   }
 

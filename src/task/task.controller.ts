@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { tasks } from './routes';
 
-@Controller('tasks')
+@Controller(tasks)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
